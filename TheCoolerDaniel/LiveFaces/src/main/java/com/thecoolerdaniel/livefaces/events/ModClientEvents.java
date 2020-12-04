@@ -14,6 +14,10 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 // Find all events at 4:30 in tut vid 15
 
 @Mod.EventBusSubscriber(modid = LiveFaces.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
@@ -34,11 +38,27 @@ public class ModClientEvents {
     @SubscribeEvent
     public static void onGameTick(TickEvent.PlayerTickEvent event) {
         LivingEntity player = event.player;
-        if (player.getHeldItemMainhand().getItem() == Items.STICK) {
-            LiveFaces.LOGGER.info("Player has stick");
+
+        // gonna try to read a file
+        String data = null;
+        try {
+            File myObj = new File("C:\\Users\\very cool dood\\Desktop\\MCmod\\Live Faces Git\\CMPM146-FINAL\\TheCoolerDaniel\\LiveFaces\\src\\main\\java\\com\\thecoolerdaniel\\livefaces\\events\\face.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                data = myReader.nextLine();
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            data = "Error";
+        }
+
+        // data now stores the content of face.txt (assuming it could be found)
+        if (data.equals("happy")) {
+            LiveFaces.LOGGER.info("Player is happy");
             player.replaceItemInInventory(103, new ItemStack(RegistryHandler.FACE1.get()));
-        } else if (player.getHeldItemMainhand().getItem() == Items.DIAMOND) {
-            LiveFaces.LOGGER.info("Player has diamond");
+        } else if (data.equals("sad")) {
+            LiveFaces.LOGGER.info("Player is sad");
             player.replaceItemInInventory(103, new ItemStack(Items.CARVED_PUMPKIN));
         }
     }
