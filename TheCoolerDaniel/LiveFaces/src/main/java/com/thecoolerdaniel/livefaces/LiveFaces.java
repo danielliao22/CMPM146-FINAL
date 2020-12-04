@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 @Mod("lf")
 public class LiveFaces
 {
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "lf";
 
     public LiveFaces() {
