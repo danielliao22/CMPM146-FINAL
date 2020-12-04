@@ -42,7 +42,8 @@ public class ModClientEvents {
         // gonna try to read a file
         String data = null;
         try {
-            File myObj = new File("C:\\Users\\very cool dood\\Desktop\\MCmod\\Live Faces Git\\CMPM146-FINAL\\TheCoolerDaniel\\LiveFaces\\src\\main\\java\\com\\thecoolerdaniel\\livefaces\\events\\face.txt");
+            // File myObj = new File("C:\\Users\\very cool dood\\Desktop\\MCmod\\Live Faces Git\\CMPM146-FINAL\\TheCoolerDaniel\\LiveFaces\\src\\main\\java\\com\\thecoolerdaniel\\livefaces\\events\\face.txt");
+            File myObj = new File("C:\\Users\\very cool dood\\Desktop\\MCmod\\facial recognition git\\ML-Facial-Recognition-and-Replacement-in-Minecraft\\emotionfile.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 data = myReader.nextLine();
@@ -54,12 +55,18 @@ public class ModClientEvents {
         }
 
         // data now stores the content of face.txt (assuming it could be found)
-        if (data.equals("happy")) {
+        if (data.equals("Happy")) {
             LiveFaces.LOGGER.info("Player is happy");
             player.replaceItemInInventory(103, new ItemStack(RegistryHandler.FACE1.get()));
-        } else if (data.equals("sad")) {
+        } else if (data.equals("Sad")) {
             LiveFaces.LOGGER.info("Player is sad");
             player.replaceItemInInventory(103, new ItemStack(Items.CARVED_PUMPKIN));
+        } else if (data.equals("Neutral")) {
+            LiveFaces.LOGGER.info("Player is neutral");
+            player.replaceItemInInventory(103, new ItemStack(Items.STICK));
+        } else if (data.equals("Surprised")) {
+            LiveFaces.LOGGER.info("Player is surprised");
+            player.replaceItemInInventory(103, new ItemStack(Items.DIAMOND_HELMET));
         }
     }
 
