@@ -1,5 +1,11 @@
 {
   "item.lf.happy_face": "Happy Face",
   "item.lf.face1": "Happy Face",
-  "block.lf.skull_block": "Skull Block"
+  "item.lf.angry": "Angry Face",
+  "item.lf.disgust": "Disgust Face",
+  "item.lf.fear": "Fear Face",
+  "item.lf.happy": "Happy Face",
+  "item.lf.sad": "Sad Face",
+  "item.lf.neutral": "Neutral Face",
+  "item.lf.surprise": "Surprise Face",
 }
