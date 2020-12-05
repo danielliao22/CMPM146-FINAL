@@ -1,7 +1,7 @@
 package com.thecoolerdaniel.livefaces.util;
 
 import com.thecoolerdaniel.livefaces.LiveFaces;
-import com.thecoolerdaniel.livefaces.armor.ModArmorMaterial;
+import com.thecoolerdaniel.livefaces.armor.*;
 import com.thecoolerdaniel.livefaces.items.ItemBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.SkullBlock;
@@ -36,6 +36,13 @@ public class RegistryHandler {
     // Armor
     public static final RegistryObject<ArmorItem> FACE1 = ITEMS.register("face1", () -> new ArmorItem(ModArmorMaterial.FACE1, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.COMBAT)));
 
+    public static final RegistryObject<ArmorItem> ANGRY = ITEMS.register("angry", () -> new ArmorItem(AngryArmorMaterial.ANGRY, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.COMBAT)));
+    public static final RegistryObject<ArmorItem> DISGUST = ITEMS.register("disgust", () -> new ArmorItem(DisgustArmorMaterial.DISGUST, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.COMBAT)));
+    public static final RegistryObject<ArmorItem> FEAR = ITEMS.register("fear", () -> new ArmorItem(FearArmorMaterial.FEAR, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.COMBAT)));
+    public static final RegistryObject<ArmorItem> HAPPY = ITEMS.register("happy", () -> new ArmorItem(HappyArmorMaterial.HAPPY, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.COMBAT)));
+    public static final RegistryObject<ArmorItem> SAD = ITEMS.register("sad", () -> new ArmorItem(SadArmorMaterial.SAD, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.COMBAT)));
+    public static final RegistryObject<ArmorItem> NEUTRAL = ITEMS.register("neutral", () -> new ArmorItem(NeutralArmorMaterial.NEUTRAL, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.COMBAT)));
+    public static final RegistryObject<ArmorItem> SURPRISE = ITEMS.register("surprise", () -> new ArmorItem(SurpriseArmorMaterial.SURPRISE, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.COMBAT)));
 }
 
 //SKULL BLOCK -> AbstractSkullBlock -> ContainerBlock -> Block -> AbstractBlock
