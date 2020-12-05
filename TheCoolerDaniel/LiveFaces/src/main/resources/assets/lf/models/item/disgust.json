@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "lf:items/face1"
+    "layer0": "lf:items/disgust"
   }
 }
