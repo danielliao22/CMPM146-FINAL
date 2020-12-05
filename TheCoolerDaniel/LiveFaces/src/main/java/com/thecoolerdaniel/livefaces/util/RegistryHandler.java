@@ -30,11 +30,13 @@ public class RegistryHandler {
     public static final RegistryObject<Item> HAPPY_FACE = ITEMS.register("happy_face", ItemBase::new);
 
     // Skull Blocks
-    public static final RegistryObject<SkullBlock> SKULL_BLOCK = BLOCKS.register("skull_block", () -> new SkullBlock(SkullBlock.Types.PLAYER, SkullBlock.Properties.create(Material.MISCELLANEOUS)));
-    public static final RegistryObject<SkullItem> SKULL_ITEM = ITEMS.register("skull_item", () -> new SkullItem(SKULL_BLOCK.get(), SKULL_BLOCK.get(), new Item.Properties().group(ItemGroup.COMBAT)));
+//    public static final RegistryObject<SkullBlock> SKULL_BLOCK = BLOCKS.register("skull_block", () -> new SkullBlock(SkullBlock.Types.PLAYER, SkullBlock.Properties.create(Material.MISCELLANEOUS)));
+//    public static final RegistryObject<SkullItem> SKULL_ITEM = ITEMS.register("skull_item", () -> new SkullItem(SKULL_BLOCK.get(), SKULL_BLOCK.get(), new Item.Properties().group(ItemGroup.COMBAT)));
 
     // Armor
     public static final RegistryObject<ArmorItem> FACE1 = ITEMS.register("face1", () -> new ArmorItem(ModArmorMaterial.FACE1, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.COMBAT)));
+
+
 
     public static final RegistryObject<ArmorItem> ANGRY = ITEMS.register("angry", () -> new ArmorItem(AngryArmorMaterial.ANGRY, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.COMBAT)));
     public static final RegistryObject<ArmorItem> DISGUST = ITEMS.register("disgust", () -> new ArmorItem(DisgustArmorMaterial.DISGUST, EquipmentSlotType.HEAD, new Item.Properties().group(ItemGroup.COMBAT)));

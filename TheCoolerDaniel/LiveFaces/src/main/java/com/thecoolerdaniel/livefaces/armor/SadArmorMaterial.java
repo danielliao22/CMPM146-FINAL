@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 
 public enum SadArmorMaterial implements IArmorMaterial {
 
-    SAD(LiveFaces.MOD_ID + ":face1", 100, new int[] { 0, 0, 0, 0 }, 0, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, null, 0);
+    SAD(LiveFaces.MOD_ID + ":sad", 100, new int[] { 0, 0, 0, 0 }, 0, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, null, 0);
 
     private static final int[] MAX_DAMAGE_ARRAY = new int[] { 0, 0, 0, 0 };
     private final String name;
