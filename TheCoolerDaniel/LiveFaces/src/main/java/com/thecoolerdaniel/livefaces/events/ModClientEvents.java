@@ -9,7 +9,10 @@ import net.minecraft.block.DoorBlock;
 import net.minecraft.client.audio.Sound;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -22,10 +25,12 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.rmi.registry.Registry;
 import java.util.Scanner;
 
 // Find all events at 4:30 in tut vid 15
@@ -65,18 +70,35 @@ public class ModClientEvents {
         }
 
         // data now stores the content of face.txt (assuming it could be found)
-        if (data.equals("Happy")) {
-            LiveFaces.LOGGER.info("Player is happy");
-            player.replaceItemInInventory(103, new ItemStack(RegistryHandler.FACE1.get()));
-        } else if (data.equals("Sad")) {
-            LiveFaces.LOGGER.info("Player is sad");
-            player.replaceItemInInventory(103, new ItemStack(Items.CARVED_PUMPKIN));
-        } else if (data.equals("Neutral")) {
-            LiveFaces.LOGGER.info("Player is neutral");
-            player.replaceItemInInventory(103, new ItemStack(Items.STICK));
-        } else if (data.equals("Surprised")) {
-            LiveFaces.LOGGER.info("Player is surprised");
-            player.replaceItemInInventory(103, new ItemStack(Items.DIAMOND_HELMET));
+        switch (data) {
+            case "Angry":
+                LiveFaces.LOGGER.info("Player is Angry");
+                player.replaceItemInInventory(103, new ItemStack(RegistryHandler.ANGRY.get()));
+                break;
+            case "Disgust":
+                LiveFaces.LOGGER.info("Player is Disgust");
+                player.replaceItemInInventory(103, new ItemStack(RegistryHandler.DISGUST.get()));
+                break;
+            case "Fear":
+                LiveFaces.LOGGER.info("Player is Fear");
+                player.replaceItemInInventory(103, new ItemStack(RegistryHandler.FEAR.get()));
+                break;
+            case "Happy":
+                LiveFaces.LOGGER.info("Player is Happy");
+                player.replaceItemInInventory(103, new ItemStack(RegistryHandler.HAPPY.get()));
+                break;
+            case "Neutral":
+                LiveFaces.LOGGER.info("Player is Neutral");
+                player.replaceItemInInventory(103, new ItemStack(RegistryHandler.NEUTRAL.get()));
+                break;
+            case "Sad":
+                LiveFaces.LOGGER.info("Player is Sad");
+                player.replaceItemInInventory(103, new ItemStack(RegistryHandler.SAD.get()));
+                break;
+            case "Surprise":
+                LiveFaces.LOGGER.info("Player is surprised");
+                player.replaceItemInInventory(103, new ItemStack(RegistryHandler.SURPRISE.get()));
+                break;
         }
 
         // Now going to try and search the area around the player for doors
@@ -101,25 +123,29 @@ public class ModClientEvents {
                     BlockState below = world.getBlockState(pos.add(0, -1, 0));
                     String expression = null;
                     if (below.getBlock() == Blocks.DIAMOND_BLOCK.getBlock()){
-                        expression = "Happy";
+                        expression = "Happy Face";
                     } else if (below.getBlock() == Blocks.COAL_BLOCK.getBlock()) {
-                        expression = "Fear";
+                        expression = "Fear Face";
                     } else if (below.getBlock() == Blocks.REDSTONE_BLOCK.getBlock()) {
-                        expression = "Angry";
+                        expression = "Angry Face";
                     } else if (below.getBlock() == Blocks.LAPIS_BLOCK.getBlock()) {
-                        expression = "Disgust";
+                        expression = "Disgust Face";
                     } else if (below.getBlock() == Blocks.EMERALD_BLOCK.getBlock()) {
-                        expression = "Sad";
+                        expression = "Sad Face";
                     } else if (below.getBlock() == Blocks.GOLD_BLOCK.getBlock()) {
-                        expression = "Surprise";
+                        expression = "Surprise Face";
                     } else if (below.getBlock() == Blocks.IRON_BLOCK.getBlock()) {
-                        expression = "Neutral";
+                        expression = "Neutral Face";
                     }
 
-                    if (!current.get(BlockStateProperties.OPEN)) {
+                    // Now we need to check the item in the head slot. If it is correct, and the door is not already open, open the door
+                    LiveFaces.LOGGER.info("Item in head slot is:");
+                    LiveFaces.LOGGER.info(player.getItemStackFromSlot(EquipmentSlotType.HEAD).getDisplayName().getString());
+                    if (expression != null && player.getItemStackFromSlot(EquipmentSlotType.HEAD).getDisplayName().getString().equals(expression) && !current.get(BlockStateProperties.OPEN)) {
                         world.setBlockState(pos, current.with(BlockStateProperties.OPEN, true), 10);
                         world.playSound(null, pos, SoundEvents.BLOCK_IRON_DOOR_OPEN, SoundCategory.BLOCKS, 1, 1);
                     }
+
                 }
 
             }
