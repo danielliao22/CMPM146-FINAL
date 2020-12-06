@@ -2,11 +2,21 @@ package com.thecoolerdaniel.livefaces.events;
 
 import com.thecoolerdaniel.livefaces.LiveFaces;
 import com.thecoolerdaniel.livefaces.util.RegistryHandler;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.DoorBlock;
+import net.minecraft.client.audio.Sound;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
@@ -68,7 +78,80 @@ public class ModClientEvents {
             LiveFaces.LOGGER.info("Player is surprised");
             player.replaceItemInInventory(103, new ItemStack(Items.DIAMOND_HELMET));
         }
+
+        // Now going to try and search the area around the player for doors
+        BlockPos loc = player.getPosition();
+        World world = player.getEntityWorld();
+        LiveFaces.LOGGER.info("\n\n\n\n\n==================Start of loop==================");
+        for(int x = -2; x < 3; x++) {
+            for (int z = -2; z < 3; z++) {
+                BlockPos pos = loc.add(x, 0, z);
+                BlockState current = world.getBlockState(pos);
+                LiveFaces.LOGGER.info("\nState of location:");
+                LiveFaces.LOGGER.info(x);
+                LiveFaces.LOGGER.info(z);
+                LiveFaces.LOGGER.info("is");
+                LiveFaces.LOGGER.info(current.getBlock());
+
+                if (current.getBlock() == Blocks.IRON_DOOR.getBlock()) {
+                    LiveFaces.LOGGER.info("\nWOOHOO! found an iron door my guy");
+
+                    // Now we need to determine what the correct expression is based off of the block below
+                    // can't put a BlockState in a switch statement, so we'll do it the good ol fashioned way
+                    BlockState below = world.getBlockState(pos.add(0, -1, 0));
+                    String expression = null;
+                    if (below.getBlock() == Blocks.DIAMOND_BLOCK.getBlock()){
+                        expression = "Happy";
+                    } else if (below.getBlock() == Blocks.COAL_BLOCK.getBlock()) {
+                        expression = "Fear";
+                    } else if (below.getBlock() == Blocks.REDSTONE_BLOCK.getBlock()) {
+                        expression = "Angry";
+                    } else if (below.getBlock() == Blocks.LAPIS_BLOCK.getBlock()) {
+                        expression = "Disgust";
+                    } else if (below.getBlock() == Blocks.EMERALD_BLOCK.getBlock()) {
+                        expression = "Sad";
+                    } else if (below.getBlock() == Blocks.GOLD_BLOCK.getBlock()) {
+                        expression = "Surprise";
+                    } else if (below.getBlock() == Blocks.IRON_BLOCK.getBlock()) {
+                        expression = "Neutral";
+                    }
+
+                    if (!current.get(BlockStateProperties.OPEN)) {
+                        world.setBlockState(pos, current.with(BlockStateProperties.OPEN, true), 10);
+                        world.playSound(null, pos, SoundEvents.BLOCK_IRON_DOOR_OPEN, SoundCategory.BLOCKS, 1, 1);
+                    }
+                }
+
+            }
+        }
+
     }
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
