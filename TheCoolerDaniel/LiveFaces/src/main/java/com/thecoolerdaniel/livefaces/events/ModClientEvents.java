@@ -126,7 +126,7 @@ public class ModClientEvents {
                         expression = "Happy Face";
                     } else if (below.getBlock() == Blocks.COAL_BLOCK.getBlock()) {
                         expression = "Fear Face";
-                    } else if (below.getBlock() == Blocks.REDSTONE_BLOCK.getBlock()) {
+                    } else if (below.getBlock() == Blocks.RED_WOOL.getBlock()) {
                         expression = "Angry Face";
                     } else if (below.getBlock() == Blocks.LAPIS_BLOCK.getBlock()) {
                         expression = "Disgust Face";
