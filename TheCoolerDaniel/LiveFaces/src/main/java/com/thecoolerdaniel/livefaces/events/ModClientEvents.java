@@ -105,8 +105,9 @@ public class ModClientEvents {
         BlockPos loc = player.getPosition();
         World world = player.getEntityWorld();
         LiveFaces.LOGGER.info("\n\n\n\n\n==================Start of loop==================");
-        for(int x = -2; x < 3; x++) {
-            for (int z = -2; z < 3; z++) {
+        int xzrange = 1;
+        for(int x = -(xzrange + 1); x < xzrange + 2; x++) {
+            for (int z = -(xzrange + 1); z < xzrange + 2; z++) {
                 BlockPos pos = loc.add(x, 0, z);
                 BlockState current = world.getBlockState(pos);
                 LiveFaces.LOGGER.info("\nState of location:");
@@ -115,7 +116,7 @@ public class ModClientEvents {
                 LiveFaces.LOGGER.info("is");
                 LiveFaces.LOGGER.info(current.getBlock());
 
-                if (current.getBlock() == Blocks.IRON_DOOR.getBlock()) {
+                if (Math.abs(x) < (xzrange + 1) && Math.abs(z) < (xzrange + 1) && current.getBlock() == Blocks.IRON_DOOR.getBlock()) {
                     LiveFaces.LOGGER.info("\nWOOHOO! found an iron door my guy");
 
                     // Now we need to determine what the correct expression is based off of the block below
@@ -146,6 +147,9 @@ public class ModClientEvents {
                         world.playSound(null, pos, SoundEvents.BLOCK_IRON_DOOR_OPEN, SoundCategory.BLOCKS, 1, 1);
                     }
 
+                } else if (current.getBlock() == Blocks.IRON_DOOR.getBlock() && current.get(BlockStateProperties.OPEN)) {
+                    world.setBlockState(pos, current.with(BlockStateProperties.OPEN, false), 10);
+                    world.playSound(null, pos, SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundCategory.BLOCKS, 1, 1);
                 }
 
             }
