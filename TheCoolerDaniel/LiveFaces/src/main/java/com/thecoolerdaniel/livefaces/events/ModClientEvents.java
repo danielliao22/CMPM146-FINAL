@@ -121,7 +121,7 @@ public class ModClientEvents {
 
                     // Now we need to determine what the correct expression is based off of the block below
                     // can't put a BlockState in a switch statement, so we'll do it the good ol fashioned way
-                    BlockState below = world.getBlockState(pos.add(0, -1, 0));
+                    BlockState below = world.getBlockState(pos.add(0, 2, 0));
                     String expression = null;
                     if (below.getBlock() == Blocks.DIAMOND_BLOCK.getBlock()){
                         expression = "Happy Face";
